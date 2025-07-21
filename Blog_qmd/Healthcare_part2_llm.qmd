@@ -14,7 +14,7 @@ We [introduced](https://rworks.dev/posts/healthcare-part1/) the use of the AI pa
 
 > ***Setting up Copilot in RStudio:** Adding Copilot as a pair programmer to your RStudio is simple, and has a seamless interface.* *Take a look at the Posit documentation [**here**](https://docs.posit.co/ide/user/ide/guide/tools/copilot.html)***.** *Make sure to enable it! See below.*
 
-![](Copilot_start.png){width="538"}
+![](images/clipboard-2604793550.png){width="538"}
 
 ## 2. Using Copilot to get data summaries
 
@@ -74,7 +74,7 @@ summary_diabetesMed <- D %>%
   arrange(desc(percent))
 ```
 
-Click on "Show the code" to see the final code used to generate the example table below. We see how circulatory diagnoses account for the most common reason for hospital admissions in diabetic encounters. This is a vital summary and an important theme that will run through our analyses.
+Click on "Show the code" to see the final code used to clean the data and generate the summaries.
 
 ```{r}
 #| label: Chunk1
@@ -146,10 +146,138 @@ summary_diabetesMed <- D %>%
   summarise(count = n(), percent = n() / nrow(D) * 100) %>%
   arrange(desc(percent))
 
-summary_primary_diag %>% 
-  kable(digits = 1, format.args = list(big.mark = ","), 
-        caption = "Breakdown of the primary patient diagnosis upon admission for a diabetic encounter") %>%
-          row_spec(1, background = "yellow", font_size = "larger")
+# summary_primary_diag %>% 
+#   kable(digits = 1, format.args = list(big.mark = ","), 
+#         caption = "Breakdown of the primary patient diagnosis upon admission for a diabetic encounter") %>%
+#           row_spec(1, background = "yellow", font_size = "larger")
+
+
+```
+
+We show an example summary for patient primary diagnosis on admission – notice how circulatory diagnoses account for the most common reason for hospital admissions in diabetic encounters. This is a vital insight and an important theme that will run through our analyses.
+
+To make the summary data easier to consume, we use a circular bar plot. While I did not use Copilot for the actual bar plot, I used GPT-4o (directly in a browser) to achieve this clean 2-column look for the plot and its notes to the right. See here for the full conversation.
+
+Finally, see "Plot notes" for details on the design.
+
+::: {.columns}
+
+::: {.column width=65%}
+
+```{r fig.width=10, fig.height=8}
+#| label: Chunk21
+#| warning: false
+#| echo: false
+#| eval: true
+
+df <- summary_primary_diag
+df <- df %>% mutate(
+  label=c(paste(round(df$percent[1:5]), "%", sep=""),rep(NA,nrow(df)-5)))
+
+
+p0 <- ggplot(data=df, aes(x=reorder(primary_diag,count), y=count, fill=percent)) +
+  geom_bar(stat="identity", color="black") + 
+  coord_polar() +
+  scale_fill_gradientn(
+    "Percent",
+    colours = c( "#6C5B7B","#C06C84","#F67280","#F8B195")) +
+  geom_text(aes(x=primary_diag, y=count/2,label = label), size=5, 
+            color="black",
+            fontface="bold") +
+scale_y_continuous(breaks = seq(0, 40000, by = 10000),
+                  limits = c(-10000, 40000),
+                  expand = c(0, 0)) +
+  annotate("text", x = 11.95, y = 12000, label = "10,000", size = 4, color = "black") +
+  annotate("text", x = 11.95, y = 22000, label = "20,000", size = 4, color = "black") +
+  annotate("text", x = 11.95, y = 32000, label = "30,000", size = 4, color = "black") +
+    theme(
+    # Remove axis ticks and text
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.y = element_blank(),
+    # Use gray text for the region names
+    axis.text.x = element_text(color = "gray12", size = 15),
+    legend.position = "none",
+    plot.title = element_text(face = "bold", size = 22),
+    plot.subtitle = element_text(size = 15)) +
+  # Add labels
+  labs(
+    title = "\nPatient primary diagnoses",
+    subtitle = paste(
+      "\nPrimary diagnoses of admitted patients vary considerably.",
+      "Even for diabetic encounters, the most common admitting diagnosis",
+      "is circulatory or heart disease. We will call this out in our analysis,",
+      "comparing patient outcomes for these high-risk but non-diabetic",
+      "admissions with diabetic admissions (which are only 9% of the",
+      "admitting or primary diagnoses).",
+      sep = "\n"
+    )) 
+
+p0
+```
+
+:::
+
+::: {.column width=35%}
+
+::: {.callout-note title="Plot notes"}
+[*The circular bar plot offers a visually engaging and effective way to convey categorical comparisons, combining aesthetic appeal with immediate interpretability. One of the strengths of the design here is its ability to simultaneously emphasize both absolute and relative differences through clear axis labeling and proportional arc length. For instance, circulatory disease accounts for 30% of the sample — roughly 30,000 encounters — while diabetes as a primary admission diagnosis represents just 9%, or fewer than 10,000. These contrasts are instantly evident not only in the numbers but also in the visual impact of the plot. The minimalist style, paired with concise explanatory text above the chart, makes each visual a self-contained and accessible summary — both analytically rich and reader-friendly.* ]{style="font-size: 0.8em;"}
+:::
+
+:::
+
+:::
+
+```{r}
+#| label: Chunk22
+#| warning: false
+#| eval: false
+#| code-fold: true
+#| code-summary: "Show the code"
+
+df <- summary_primary_diag
+df <- df %>% mutate(
+  label=c(paste(round(df$percent[1:5]), "%", sep=""),rep(NA,nrow(df)-5)))
+
+
+p0 <- ggplot(data=df, aes(x=reorder(primary_diag,count), y=count, fill=percent)) +
+  geom_bar(stat="identity", color="black") + 
+  coord_polar() +
+  scale_fill_gradientn(
+    "Percent",
+    colours = c( "#6C5B7B","#C06C84","#F67280","#F8B195")) +
+  geom_text(aes(x=primary_diag, y=count/2,label = label), size=3.5, 
+            color="black",
+            fontface="bold") +
+scale_y_continuous(breaks = seq(0, 40000, by = 10000),
+                  limits = c(-10000, 40000),
+                  expand = c(0, 0)) +
+  annotate("text", x = 11.95, y = 12000, label = "10,000", size = 2.5, color = "black") +
+  annotate("text", x = 11.95, y = 22000, label = "20,000", size = 2.5, color = "black") +
+  annotate("text", x = 11.95, y = 32000, label = "30,000", size = 2.5, color = "black") +
+    theme(
+    # Remove axis ticks and text
+    axis.title = element_blank(),
+    axis.ticks = element_blank(),
+    axis.text.y = element_blank(),
+    # Use gray text for the region names
+    axis.text.x = element_text(color = "gray12", size = 10),
+    legend.position = "none",
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(size = 9)) +
+  # Add labels
+  labs(
+    title = "\nPatient primary diagnoses",
+    subtitle = paste(
+      "\nPrimary diagnoses of admitted patients vary considerably.",
+      "Even for diabetic encounters, the most common admitting diagnosis",
+      "is circulatory or heart disease. We will call this out in our analysis,",
+      "comparing patient outcomes for these high-risk but non-diabetic",
+      "admissions with diabetic admissions (which are only 9% of the",
+      "admitting or primary diagnoses).",
+      sep = "\n"
+    )) 
+
 ```
 
 ## 3. Prompting pitfalls: What You Ask Is What You Get
@@ -297,7 +425,9 @@ p0
 
 ::: {.column width=50%}
 
-> ***Plot notes:** The original barplot on the left is a slightly different use of `geom_col()`. While it is normally used for a bar chart use case, in this plot, it has a quite useful "heatmap" look. By using `coord_flip()`, we are able to clearly see the full name of each medication. In my mind, this is a slightly better look than having the medication names be on the x-axis at a 45-degree angle. We enhanced this further by also using `geom_tile()`.*
+::: {.callout-note title="Plot notes"}
+***Plot notes:** The original barplot on the left is a slightly different use of `geom_col()`. While it is normally used for a bar chart use case, in this plot, it has a quite useful "heatmap" look. By using `coord_flip()`, we are able to clearly see the full name of each medication. In my mind, this is a slightly better look than having the medication names be on the x-axis at a 45-degree angle. We enhanced this further by also using `geom_tile()`.*
+:::
 
 :::
 
@@ -332,7 +462,9 @@ p1
 
 ::: {.column width=50%}
 
-> ***Plot notes:** Upon switching to a `geom_tile()` heatmap plot, the more nuanced prescription variations become much more evident. However, the default color parameters from Copilot output from output 4 does not offer this as clearly. I adjust these color parameters to make them more robust under color vision deficiencies, making them easily distinguishable for all viewers, and surfacing the actual variations across medications prescribed. I also add data labels to the final plot.*
+::: {.callout-note title="Plot notes"}
+[***Plot notes**: Upon switching to a `geom_tile()`*]{style="font-size: 0.95em;"} *heatmap plot, the more nuanced prescription variations become much more evident. However, the default color parameters from Copilot output 4 does not offer this as clearly. I adjust these color parameters to make them more robust under color vision deficiencies, making them easily distinguishable for all viewers, and surfacing the actual variations across medications prescribed. I also add data labels to the final plot.*
+:::
 
 :::
 
