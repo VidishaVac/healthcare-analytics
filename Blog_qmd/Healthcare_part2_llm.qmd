@@ -292,7 +292,7 @@ Consider the 23 medication prescriptions, each categorized into one of four leve
 
 💡 Takeaway: The quality of your output depends on the quality of your prompt. Copilot is powerful, but only if you guide it with precision.
 
-![](images/clipboard-3142793684.png){width="785"}
+![](convo.png){width="785"}
 
 Click on "Show the code" to see the actual back-and-forth conversation with Copilot that was the basis of the final visualization.
 
