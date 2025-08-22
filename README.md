@@ -25,7 +25,12 @@ You will find images, R code snippets, PDF's and other tools that will enable yo
 
 ### Additional relevant Health Tech links
 
+#### My blog posts in R Works:
 - [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 1](https://rworks.dev/posts/healthcare-part1/)
+- [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 2](https://rworks.dev/posts/healthcare-part2/)
+- [Notes on the impact of AI in Healthcare Analytics](https://rworks.dev/posts/healthcare-part2-copilot-supplement/)
+
+#### Useful links within my repo:  
 - [UCI ML repo Diabetes dataset](https://github.com/VidishaVac/healthcare-analytics/tree/main/dataset_diabetes)
 - [A polar barchart as a presentation-ready visual](https://github.com/VidishaVac/healthcare-analytics/blob/main/R_snippets/polar.png)
 - [R code snippets](https://github.com/VidishaVac/healthcare-analytics/blob/main/R_snippets)
