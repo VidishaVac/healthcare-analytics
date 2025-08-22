@@ -3,7 +3,7 @@
 ## Welcome
 Welcome to this space! I recently began exploring GPT-4o mini and GitHub Copilot to help me speed up my data workflows in R, especially within Healthcare Analytics (see **Health Tech** below). I am excited to share this work to help readers understand the role of RStudio and AI in Healthcare Analytics!
 
-## My blog posts in R Works:
+## My blog posts in R Works
 - [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 1](https://rworks.dev/posts/healthcare-part1/)
 - [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 2](https://rworks.dev/posts/healthcare-part2/)
 - [Notes on the impact of AI in Healthcare Analytics](https://rworks.dev/posts/healthcare-part2-copilot-supplement/)
