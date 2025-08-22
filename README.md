@@ -3,6 +3,11 @@
 ## Welcome
 Welcome to this space! I recently began exploring GPT-4o mini and GitHub Copilot to help me speed up my data workflows in R, especially within Healthcare Analytics (see **Health Tech** below). I am excited to share this work to help readers understand the role of RStudio and AI in Healthcare Analytics!
 
+## My blog posts in R Works:
+- [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 1](https://rworks.dev/posts/healthcare-part1/)
+- [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 2](https://rworks.dev/posts/healthcare-part2/)
+- [Notes on the impact of AI in Healthcare Analytics](https://rworks.dev/posts/healthcare-part2-copilot-supplement/)
+
 ## Quick introduction
 This is a space where I will add my current work in **healthcare data analytics**, which will include:
 - Publicly available data files used for the analysis done in this space, e.g. dataset_diabetes
@@ -23,14 +28,8 @@ You will also find health tech content in this space, particularly how I leverag
 
 You will find images, R code snippets, PDF's and other tools that will enable you to learn more about how tidyverse with the augmentation of the use of pair programmers like Copilot and Ellmer, can be an immensely powerful mechanism for healthcare technology.
 
-### Additional relevant Health Tech links
+### Additional relevant within my repo:
 
-#### My blog posts in R Works:
-- [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 1](https://rworks.dev/posts/healthcare-part1/)
-- [Tidyverse with GitHub Copilot for Healthcare Analytics – Part 2](https://rworks.dev/posts/healthcare-part2/)
-- [Notes on the impact of AI in Healthcare Analytics](https://rworks.dev/posts/healthcare-part2-copilot-supplement/)
-
-#### Useful links within my repo:  
 - [UCI ML repo Diabetes dataset](https://github.com/VidishaVac/healthcare-analytics/tree/main/dataset_diabetes)
 - [A polar barchart as a presentation-ready visual](https://github.com/VidishaVac/healthcare-analytics/blob/main/R_snippets/polar.png)
 - [R code snippets](https://github.com/VidishaVac/healthcare-analytics/blob/main/R_snippets)
